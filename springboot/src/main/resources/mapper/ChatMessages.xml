@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.fandy.chatroom.mapper.ChatMessagesMapper">
+
+    <select id="selectChatMessages" resultType="priv.fandy.chatroom.entity.ChatMessages">
+        select
+            *
+        from
+            (
+                select
+                id,
+                content,
+                status,
+                from_username as fromUsername,
+                to_username as toUsername,
+                create_time as createTime
+                from
+                chat_messages
+                <where>
+                    <if test="fromUsername != null and fromUsername != ''">
+                        and from_username = #{fromUsername}
+                    </if>
+                    <if test="toUsername != null and toUsername != ''">
+                        and to_username = #{toUsername}
+                    </if>
+                </where>
+                union all
+                select
+                id,
+                content,
+                status,
+                from_username as fromUsername,
+                to_username as toUsername,
+                create_time as createTime
+                from
+                chat_messages
+                <where>
+                    <if test="fromUsername != null and fromUsername != ''">
+                        and to_username = #{fromUsername}
+                    </if>
+                    <if test="toUsername != null and toUsername != ''">
+                        and from_username = #{toUsername}
+                    </if>
+                </where>
+        )msg
+        order by msg.createTime
+
+    </select>
+</mapper>

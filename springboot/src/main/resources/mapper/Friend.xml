@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.fandy.chatroom.mapper.FriendMapper">
+
+    <select id="selectFriendsByUsername" resultType="priv.fandy.chatroom.entity.dos.UserFriendDO">
+        select
+            f.id,
+            f.friend_username as username,
+            f.remark,
+            u.nick_name as nickName,
+            u.age
+        from user u
+        left join friend f on u.username = f.friend_username
+        <where>
+            f.is_deleted = 2
+            <if test="username != null and username != ''">
+                and f.username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectFriends" resultType="priv.fandy.chatroom.entity.Friend">
+        select
+            id,
+            username,
+            friend_username,
+            create_time,
+            update_time
+        from friend
+        <where>
+            is_deleted = 2
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="friendUsername != null and friendUsername != ''">
+                and friend_username = #{friendUsername}
+            </if>
+        </where>
+    </select>
+</mapper>
