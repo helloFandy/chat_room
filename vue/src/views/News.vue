@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 10px">
     <!--    功能区域-->
-    <div style="margin: 10px 0">
+    <div style="margin: 10px 0" v-if="this.user.username === 'admin'">
       <el-button type="primary" @click="add">新增</el-button>
     </div>
 
@@ -37,8 +37,8 @@
       <el-table-column label="操作">
         <template #default="scope">
           <el-button size="mini" @click="details(scope.row)">详情</el-button>
-          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-popconfirm title="确定删除吗？" @confirm="handleDelete(scope.row.id)">
+          <el-button size="mini" @click="handleEdit(scope.row)" v-if="this.user.username === 'admin'">编辑</el-button>
+          <el-popconfirm title="确定删除吗？" @confirm="handleDelete(scope.row.id)" v-if="this.user.username === 'admin'">
             <template #reference>
               <el-button size="mini" type="danger">删除</el-button>
             </template>
