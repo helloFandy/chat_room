@@ -40,6 +40,9 @@ public class Message extends Model<Message> {
     @TableField(exist = false)
     private Message parentMessage;
 
+    @TableField(exist = false)
+    private String parentUsername;
+
     /**
      * 关联id
      */

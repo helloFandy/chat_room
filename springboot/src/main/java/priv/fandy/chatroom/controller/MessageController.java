@@ -85,7 +85,10 @@ public class MessageController extends BaseController{
             Long parentId = Message.getParentId();
             // 判断当前的留言是否有父级，如果有，则返回父级留言的信息
             // 原理：遍历所有留言数据，如果id跟当前留言信息的parentId相等，则将其设置为父级评论信息，也就是Message::setParentMessage
-            list.stream().filter(c -> c.getId().equals(parentId)).findFirst().ifPresent(Message::setParentMessage);
+            list.stream().filter(c -> c.getId().equals(parentId)).findFirst().ifPresent(item->{
+                Message.setParentMessage(item);
+                Message.setParentUsername(item.getUsername());
+                });
         }
         return list;
     }

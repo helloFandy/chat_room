@@ -10,7 +10,7 @@
 
       <div style="display: flex; padding: 20px" v-for="item in messages">
         <div style="text-align: center; flex: 1">
-          <el-image :src="item.avatar" style="width: 60px; height: 60px; border-radius: 50%"></el-image>
+          <el-avatar>User</el-avatar>
         </div>
         <div style="padding: 0 10px; flex: 5">
           <div><b style="font-size: 14px">{{ item.username }}</b></div>
@@ -18,7 +18,7 @@
             {{ item.content }}
             <el-button type="text" size="mini" @click="del(item.id)" v-if="item.username === user.username">删除</el-button>
           </div>
-          <div style="background-color: #eee; padding: 10px" v-if="item.parentMessage">{{ item.username }}：{{ item.parentMessage.content }}</div>
+          <div style="background-color: #eee; padding: 10px" v-if="item.parentMessage">{{ item.parentUsername }}：{{ item.parentMessage.content }}</div>
           <div style="color: #888; font-size: 12px">
             <span>{{ item.time  }}</span>
             <el-button type="text" style="margin-left: 20px" @click="reReply(item.id)">回复</el-button>
